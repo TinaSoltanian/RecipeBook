@@ -8,9 +8,16 @@ export class ShoppingService{
     new Ingredient('Tomato', 10),
   ];
 
-    addIngredients(ingredient: Ingredient){
+    addIngredient(ingredient: Ingredient){
         this.ingredients.push(ingredient);
         this.ingredientChanged.emit(this.ingredients.slice());
+    }
+
+    addIngredients(ingredient_array: Ingredient[]) {
+        //this.ingredients.push.apply(this.ingredients, ingredient_array);
+        this.ingredients.push(...ingredient_array);
+        console.log(this.ingredients);
+        this.shoppingListChanged.emit(this.ingredients.slice());
     }
 
     getIngredients() {
@@ -18,4 +25,5 @@ export class ShoppingService{
     }
 
     ingredientChanged = new EventEmitter<Ingredient[]>();
+    shoppingListChanged = new EventEmitter<Ingredient[]>();
 }
