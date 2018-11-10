@@ -1,42 +1,45 @@
+import { EventEmitter, Injectable } from '@angular/core';
+
 import { Recipe } from './recipe.model';
-import { EventEmitter } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingService } from '../shopping-list/shopping.service';
 
+@Injectable()
 export class RecipeService {
+  recipeSelected = new EventEmitter<Recipe>();
 
-    currentRecipe: Recipe;
+  private recipes: Recipe[] = [
+    new Recipe(
+      'Tasty Schnitzel',
+      'A super-tasty Schnitzel - just awesome!',
+      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+      [
+        new Ingredient('Meat', 1),
+        new Ingredient('French Fries', 20)
+      ]),
+    new Recipe('Big Fat Burger',
+      'What else you need to say?',
+      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+      [
+        new Ingredient('Buns', 2),
+        new Ingredient('Meat', 1)
+      ]),
+      new Recipe('Big Fat Burger 2',
+      'What else you need to say?',
+      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+      [
+        new Ingredient('Buns', 2),
+        new Ingredient('Meat', 1)
+      ])
+  ];
 
-    private recipes: Recipe[] = [
-        new Recipe(
-          'Test recipe 1',
-          'This is description 1',
-          'https://media.self.com/photos/57dff8aa7160f6ee33314fdf/8:3/w_1280,c_limit/sub-channel-food_recipes.jpg',
-          [new Ingredient( 'Ing1', 10),
-           new Ingredient( 'Ing2', 20) 
-          ]        
-        ),
-        new Recipe(
-          'Test recipe 2',
-          'This is description 2',
-          'https://media.self.com/photos/57dff8aa7160f6ee33314fdf/8:3/w_1280,c_limit/sub-channel-food_recipes.jpg',
-          [new Ingredient( 'Ing3', 10),
-          new Ingredient( 'Ing4',  20) 
-         ]
-        ),
-        new Recipe(
-          'Test recipe 3',
-          'This is description 3',
-          'https://media.self.com/photos/57dff8aa7160f6ee33314fdf/8:3/w_1280,c_limit/sub-channel-food_recipes.jpg',
-          [new Ingredient( 'Ing5', 10),
-          new Ingredient( 'Ing6',  20) 
-         ]
-        )
-      ];    
-    
-    
-      getAllRecipes(){
-          return this.recipes.slice();
-      }
+  constructor(private slService: ShoppingService) {}
 
-      recipeSelected = new EventEmitter<Recipe>();
+  getAllRecipes() {
+    return this.recipes.slice();
+  }
+
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    this.slService.addIngredients(ingredients);
+  }
 }
