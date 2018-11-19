@@ -1,6 +1,5 @@
 import { Ingredient } from "../shared/ingredient.model";
-import { EventEmitter } from "@angular/core";
-import { TemplateBinding } from "@angular/compiler";
+import { Subject } from "rxjs/Subject";
 
 export class ShoppingService {
   private ingredients: Ingredient[] = [
@@ -11,7 +10,7 @@ export class ShoppingService {
   addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
     this.mergeIngredients();
-    this.ingredientChanged.emit(this.ingredients.slice());
+    this.ingredientChanged.next(this.ingredients.slice());
   }
 
   // private tempIng: Ingredient[];
@@ -42,13 +41,13 @@ export class ShoppingService {
     //this.ingredients.push.apply(this.ingredients, ingredient_array);
     this.ingredients.push(...ingredient_array);
     this.mergeIngredients();
-    this.shoppingListChanged.emit(this.ingredients.slice());
+    this.shoppingListChanged.next(this.ingredients.slice());
   }
 
   getIngredients() {
     return this.ingredients.slice();
   }
 
-  ingredientChanged = new EventEmitter<Ingredient[]>();
-  shoppingListChanged = new EventEmitter<Ingredient[]>();
+  ingredientChanged = new Subject<Ingredient[]>();
+  shoppingListChanged = new Subject<Ingredient[]>();
 }
