@@ -10,9 +10,11 @@ import { ShoppingService } from '../shopping.service';
   styleUrls: ['./shopping-edit.component.css']
 })
 export class ShoppingEditComponent implements OnInit {
-  @ViewChild('amountInput') amountInput: ElementRef;
-  @ViewChild('nameInput') nameInput: ElementRef;
+  // @ViewChild('amountInput') amountInput: ElementRef;
+  // @ViewChild('nameInput') nameInput: ElementRef;
   //@Output() onAdd = new EventEmitter<Ingredient>();  
+
+  @ViewChild('f') myForm: ElementRef;
 
   constructor(private shoppingService: ShoppingService) { }
 
@@ -20,14 +22,15 @@ export class ShoppingEditComponent implements OnInit {
   }
 
   onAddClicked() {
-    if (this.amountInput.nativeElement.value !== '' && this.nameInput.nativeElement.value !== ''){
+    console.log(this.myForm);
+    // if (this.amountInput.nativeElement.value !== '' && this.nameInput.nativeElement.value !== ''){
 
-        this.shoppingService.addIngredient( new Ingredient( this.nameInput.nativeElement.value, 
-        this.amountInput.nativeElement.value ) );
+    //     this.shoppingService.addIngredient( new Ingredient( this.nameInput.nativeElement.value, 
+    //     this.amountInput.nativeElement.value ) );
 
 
-        this.nameInput.nativeElement.value = '';
-        this.amountInput.nativeElement.value = '';
-    }    
+    //     this.nameInput.nativeElement.value = '';
+    //     this.amountInput.nativeElement.value = '';
+    // }    
   }
 }
