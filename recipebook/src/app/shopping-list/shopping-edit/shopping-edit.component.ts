@@ -25,15 +25,8 @@ export class ShoppingEditComponent implements OnInit {
   onAddClicked() {
      const values = this.myForm.value;
 //     console.log(values);
-    if (values.name !== '' && values.amount !== ''){
-
         this.shoppingService.addIngredient( new Ingredient( values.name, 
-          values.amount ) );
-
-
-        // this.nameInput.nativeElement.value = '';
-        // this.amountInput.nativeElement.value = '';
-    }    
+          values.amount ) );   
   }
 
 
