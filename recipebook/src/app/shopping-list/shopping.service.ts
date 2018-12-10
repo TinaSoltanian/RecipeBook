@@ -2,6 +2,8 @@ import { Ingredient } from "../shared/ingredient.model";
 import { Subject } from "rxjs/Subject";
 
 export class ShoppingService {
+  startedEditing = new Subject<number>();
+
   private ingredients: Ingredient[] = [
     new Ingredient("Apple", 5),
     new Ingredient("Tomato", 10)
@@ -16,6 +18,10 @@ export class ShoppingService {
   // private tempIng: Ingredient[];
   // private i : number;
 
+  getIngredient(index: number){
+    return this.ingredients[index];
+  }
+
   private mergeIngredients() {
     let tempIng: Ingredient[] = [];
 
@@ -25,7 +31,7 @@ export class ShoppingService {
         const index = tempIng.map(e => e.name).indexOf(ingredient.name);
 
         if (index > -1) {
-          tempIng[index].amont = Number(tempIng[index].amont) + Number(ingredient.amont);
+          tempIng[index].amount = Number(tempIng[index].amount) + Number(ingredient.amount);
         } else {
           tempIng.push(ingredient);
         }
