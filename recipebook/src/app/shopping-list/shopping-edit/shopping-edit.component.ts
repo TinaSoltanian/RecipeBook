@@ -42,7 +42,12 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.sunscription.unsubscribe();
   }
-
+  
+  onClearUI() {
+    console.log('test');
+    this.myForm.reset();
+  }
+  
   onAddClicked() {
      const values = this.myForm.value;
      const newIngredient = new Ingredient( values.name, values.amount );
@@ -52,7 +57,10 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
      else{
         this.shoppingService.addIngredient( newIngredient );   
      }
+     this.editMode = false;
+     this.myForm.reset();
   }
+
 
 
 }
