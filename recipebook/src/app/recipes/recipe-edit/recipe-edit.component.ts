@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
 
 @Component({
@@ -35,18 +35,35 @@ export class RecipeEditComponent implements OnInit {
     let recipeName = '';
     let description = '';
     let imagePath = '';
+    let recipeIngredients = new FormArray([]);
 
     if (this.allowEdit){
-      recipeName = this.recipeService.getRecipe(this.id).Name;
-      description = this.recipeService.getRecipe(this.id).Description;
-      imagePath = this.recipeService.getRecipe(this.id).ImagePath;
+      const recipe = this.recipeService.getRecipe(this.id);
+      recipeName = recipe.Name;
+      description = recipe.Description;
+      imagePath = recipe.ImagePath;
+      if(recipe['Ingredients']){
+        for(let ingredient of recipe.Ingredients){
+          recipeIngredients.push(
+            new FormGroup({
+                'name' : new FormControl(ingredient.name),
+                'amount': new FormControl(ingredient.amount)
+            })
+          );
+        }
+      }
     }
 
     this.recipeForm = new FormGroup({
       'name': new FormControl(recipeName),
       'description': new FormControl(description),
       'imagePath': new FormControl(imagePath),
+      'ingredients' : recipeIngredients;
     });
+  }
+
+  getControls(){
+    return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
 
 }
