@@ -30,6 +30,6 @@ export class RecipeDetailComponent implements OnInit {
 
   onShoppingListClicked(){
 
-    this.shoppingService.addIngredients(this.recipe.Ingredients);
+    this.shoppingService.addIngredients(this.recipe.ingredients);
   }
 }

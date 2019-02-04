@@ -8,13 +8,19 @@ import { Recipe } from '../recipe.model';
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent implements OnInit {  
+export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[];
 
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit() {
+    this.recipeService.recipeChanged.subscribe(
+      (recipes: Recipe[]) => {
+        this.recipes = recipes;
+      }
+    );
+
     this.recipes = this.recipeService.getAllRecipes();
   }
 }
