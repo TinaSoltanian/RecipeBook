@@ -16,10 +16,8 @@ export class RecipeDetailComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const id = +this.route.snapshot.queryParams['id'];
-    console.log(id);
+    const id = +this.route.snapshot.queryParams['id'];    
     this.recipe = this.recipeService.getRecipe(id);
-    console.log(this.recipe);
 
     this.route.params.subscribe( 
       (params: Params) => {
