@@ -69,6 +69,20 @@ export class RecipeService {
     return max + 1;
   }
 
+  getMinId(){
+    let recipes = this.getAllRecipes();
+
+    let min = Math.min.apply(
+      Math, 
+      recipes.map( function(recipe) 
+        { return recipe.id; 
+        }
+        )
+    );
+
+    return min;
+  }
+
   addRecipe(recipe: Recipe){
 
     recipe.id = this.getNextID();
