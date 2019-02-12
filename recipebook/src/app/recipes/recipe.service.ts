@@ -55,7 +55,23 @@ export class RecipeService {
     return recipe;
   }
 
+  getNextID(){
+    let recipes = this.getAllRecipes();
+
+    let max = Math.max.apply(
+      Math, 
+      recipes.map( function(recipe) 
+        { return recipe.id; 
+        }
+        )
+    );
+
+    return max + 1;
+  }
+
   addRecipe(recipe: Recipe){
+
+    recipe.id = this.getNextID();
     this.recipes.push(recipe);
     this.recipeChanged.next(this.recipes.slice());
   }
