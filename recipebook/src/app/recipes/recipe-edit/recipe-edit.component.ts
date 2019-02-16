@@ -13,6 +13,7 @@ export class RecipeEditComponent implements OnInit {
   id: number;
   allowEdit: boolean = false;
   recipeForm: FormGroup;
+  isDelete: boolean = false;
   
   constructor(private route: ActivatedRoute,
                 private recipeService: RecipeService,
@@ -23,7 +24,8 @@ export class RecipeEditComponent implements OnInit {
     .subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        this.allowEdit = (this.id !== null) && !(isNaN(this.id));        
+        this.isDelete = this.router.url.indexOf('delete') !== -1;
+        this.allowEdit = (this.id !== null) && !(isNaN(this.id)) && this.isDelete === false;      
         this.initForm();
       }
     );
@@ -78,10 +80,7 @@ export class RecipeEditComponent implements OnInit {
     let imagePath = '';
     let ingredients = new FormArray([]);
 
-    console.log(this.id);
-    console.log(this.allowEdit);
-
-    if (this.allowEdit){
+    if (this.allowEdit || this.isDelete){
       const recipe = this.recipeService.getRecipe(this.id);
       recipeName = recipe.name;
       description = recipe.description;
