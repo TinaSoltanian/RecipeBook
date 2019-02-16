@@ -29,12 +29,17 @@ export class RecipeEditComponent implements OnInit {
     );
   }
 
+  navigateAway(id: number){    
+      this.router.navigateByUrl("/recipes/" + id);
+  }
+
   onCancelClick(){
     if (this.allowEdit){
-      this.router.navigateByUrl("/recipes/" + this.id);
+      this.navigateAway(this.id);
     }
-    else{
-      this.router.navigateByUrl("/recipes/" + this.recipeService.getMinId());
+    else
+    {
+      this.navigateAway(this.recipeService.getMinId());
     }
   }
 
@@ -47,9 +52,11 @@ export class RecipeEditComponent implements OnInit {
     // );
     if (this.allowEdit){
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+      this.navigateAway(this.id);
     }
     else{
       this.recipeService.addRecipe(this.recipeForm.value);
+      this.navigateAway(this.recipeService.getMaxId());
     }
   }
 
