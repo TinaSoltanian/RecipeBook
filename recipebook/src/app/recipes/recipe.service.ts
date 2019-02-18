@@ -104,7 +104,7 @@ export class RecipeService {
     index = this.recipes.findIndex(x => x.id === id);
 
     this.recipes.splice(index, 1);
-    this.recipeChanged.next(this.recipes.slice());    
+    this.recipeChanged.next(this.recipes.slice());
 
     console.log(index);
     console.log(this.recipes);
