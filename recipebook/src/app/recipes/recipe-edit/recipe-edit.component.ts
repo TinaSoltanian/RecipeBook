@@ -31,6 +31,11 @@ export class RecipeEditComponent implements OnInit {
     );
   }
 
+  onDeleteClick(){
+    this.recipeService.deleteRecipe(this.id);
+    this.navigateAway(this.recipeService.getMinId());
+  }
+
   navigateAway(id: number){    
       this.router.navigateByUrl("/recipes/" + id);
   }

@@ -97,6 +97,19 @@ export class RecipeService {
     return max;
   }
 
+
+
+  deleteRecipe(id: number){
+    let index = 0;
+    index = this.recipes.findIndex(x => x.id === id);
+
+    this.recipes.splice(index, 1);
+    this.recipeChanged.next(this.recipes.slice());    
+
+    console.log(index);
+    console.log(this.recipes);
+  }
+
   addRecipe(recipe: Recipe){
 
     recipe.id = this.getNextID();
