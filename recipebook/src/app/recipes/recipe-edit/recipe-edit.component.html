@@ -85,7 +85,12 @@
                           <input type="number"  formControlName="amount" class="form-control" [readonly]=isDelete>
                       </div>       
                       <div class="col-xs-2">
-                        <button class='btn btn-danger' *ngIf=!isDelete>X</button>
+                        <button 
+                        type='button'
+                        class='btn btn-danger' 
+                        (click)='onDeleteIngredient(i)'
+                        *ngIf=!isDelete>X
+                      </button>
                       </div>    
                     </div>
 
